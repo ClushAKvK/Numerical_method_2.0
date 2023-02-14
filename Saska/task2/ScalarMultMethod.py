@@ -48,6 +48,8 @@ def scalar_mult_method(matrix, approx, eps):
         lmd = scalarMult(approx, e)
         e = getNewApproximation(approx)
 
+    print('asdadasd a')
+
     return lmd
 
 
