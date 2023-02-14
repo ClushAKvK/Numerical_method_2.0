@@ -1,0 +1,67 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N802" />
+          <option value="N806" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="main.glClearColor" />
+          <option value="main.pygame" />
+          <option value="main.OpenGL" />
+          <option value="main.glColor3f" />
+          <option value="main.glutPostRedisplay" />
+          <option value="main.GLUT_KEY_RIGHT" />
+          <option value="main.GLUT_KEY_LEFT" />
+          <option value="main.GLUT_KEY_DOWN" />
+          <option value="main.GLUT_KEY_UP" />
+          <option value="main.glPopMatrix" />
+          <option value="main.glutSwapBuffers" />
+          <option value="main.glutSolidSphere" />
+          <option value="main.glTranslatef" />
+          <option value="main.glMaterialfv" />
+          <option value="main.GL_FRONT" />
+          <option value="main.GL_DIFFUSE" />
+          <option value="main.GL_COLOR_BUFFER_BIT" />
+          <option value="main.GL_DEPTH_BUFFER_BIT" />
+          <option value="main.glPushMatrix" />
+          <option value="main.glRotatef" />
+          <option value="main.glutInit" />
+          <option value="main.glutInitDisplayMode" />
+          <option value="main.glutInitWindowSize" />
+          <option value="main.glutCreateWindow" />
+          <option value="main.glShadeModel" />
+          <option value="main.glEnable" />
+          <option value="main.glLightfv" />
+          <option value="main.glLightf" />
+          <option value="main.glutDisplayFunc" />
+          <option value="main.glutSpecialFunc" />
+          <option value="main.glMatrixMode" />
+          <option value="main.gluPerspective" />
+          <option value="main.gluLookAt" />
+          <option value="main.glutMainLoop" />
+          <option value="main.GLUT_DOUBLE" />
+          <option value="main.GLUT_RGB" />
+          <option value="main.GLUT_DEPTH" />
+          <option value="main.GL_SMOOTH" />
+          <option value="main.GL_CULL_FACE" />
+          <option value="main.GL_DEPTH_TEST" />
+          <option value="main.GL_LIGHTING" />
+          <option value="main.GL_LIGHT0" />
+          <option value="main.GL_POSITION" />
+          <option value="main.GL_CONSTANT_ATTENUATION" />
+          <option value="main.GL_LINEAR_ATTENUATION" />
+          <option value="main.GL_PROJECTION" />
+          <option value="main.GL_MODELVIEW" />
+          <option value="main.glClear" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>
