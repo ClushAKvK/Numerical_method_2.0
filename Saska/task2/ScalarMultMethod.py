@@ -87,7 +87,7 @@ def scalar_mult_method(matrix, x0, eps):
 
 
 def main():
-    with open('input4.txt', 'r') as fin:
+    with open('input1.txt', 'r') as fin:
         eps = 0.1**6
         approx = [float(x) for x in fin.readline().split()]
         matrix = []
