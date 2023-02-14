@@ -35,22 +35,55 @@ def getNewApproximation(vec):
     return [x / n for x in vec]
 
 
-def scalar_mult_method(matrix, approx, eps):
-    e = getNewApproximation(approx)
-    approx = matrix.mult_by_vector(e)
-    lmd = scalarMult(approx, e)
-    lastLmd = lmd + 1
-    e = getNewApproximation(approx)
+def getTempX2Vector(x0, x1, x2):
+    tempX2 = []
+    for i in range(len(x0)):
+        tempX2.append(
+            (x0[i] * x2[i] - x1[i]**2) / (x2[i] - 2 * x1[i] + x0[i])
+        )
+    return tempX2
 
-    while abs(lmd - lastLmd) > eps:
-        approx = matrix.mult_by_vector(e)
-        lastLmd = lmd
-        lmd = scalarMult(approx, e)
-        e = getNewApproximation(approx)
 
-    print('asdadasd a')
+def scalar_mult_method(matrix, x0, eps):
 
-    return lmd
+    # Step 1-1
+    e = getNewApproximation(x0)
+    x1 = matrix.mult_by_vector(e)
+
+    # Step 1-2
+    e = getNewApproximation(x1)
+    x2 = matrix.mult_by_vector(e)
+    lmd2 = scalarMult(x2, e)
+
+    # Step 2
+    e = getNewApproximation(x2)
+    tempX2 = getTempX2Vector(x0, x1, x2)
+    tempLmd = scalarMult(tempX2, e)
+
+    # Step 3
+    e = getNewApproximation(tempX2)
+    x3 = matrix.mult_by_vector(e)
+    lmd3 = scalarMult(x3, e)
+
+    # Step 4
+    while abs(lmd3 - lmd2) > eps:
+        x0 = tempX2
+        x1 = x3
+
+        e = getNewApproximation(x1)
+        x2 = matrix.mult_by_vector(e)
+        lmd2 = scalarMult(x2, e)
+
+        e = getNewApproximation(x2)
+        tempX2 = getTempX2Vector(x0, x1, x2)
+        tempLmd = scalarMult(tempX2, e)
+
+        # Step 3
+        e = getNewApproximation(tempX2)
+        x3 = matrix.mult_by_vector(e)
+        lmd3 = scalarMult(x3, e)
+
+    return lmd3
 
 
 def main():
