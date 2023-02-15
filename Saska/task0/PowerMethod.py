@@ -45,11 +45,11 @@ def power_method(matrix, approx, eps):
         lastLmd = lmd
         lmd = scalarMult(y, approx)
         approx = getNewApproximation(y)
-    return lmd
+    return (lmd, approx)
 
 
 def main():
-    with open('input4.txt', 'r') as fin:
+    with open('input1.txt', 'r') as fin:
         eps = 0.1**6
         approx = [float(x) for x in fin.readline().split()]
         matrix = []
@@ -58,8 +58,9 @@ def main():
                 [float(x) for x in line.split()]
             )
 
-    answer = power_method(Matrix(matrix), approx, eps)
+    answer, vec = power_method(Matrix(matrix), approx, eps)
     print(answer)
+    print(vec)
 
     with open('output.txt', 'w') as fout:
         fout.write(answer.__str__())
