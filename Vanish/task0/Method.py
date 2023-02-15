@@ -15,12 +15,12 @@ def mult_matr_on_vec(matrix, vector):
 
 
 def norm(vector):
-    maxEl = vector[0]
-    for el in vector:
-        if abs(maxEl) < abs(el):
-            maxEl = el
-    return maxEl
-    # return math.sqrt(sum(x * x for x in vector))
+    # maxEl = vector[0]
+    # for el in vector:
+    #     if abs(maxEl) < abs(el):
+    #         maxEl = el
+    # return maxEl
+    return math.sqrt(sum(x * x for x in vector))
 
 def scalar(vec1, vec2):
     ans = 0
@@ -29,7 +29,7 @@ def scalar(vec1, vec2):
     return ans
 
 
-def make_result(matrix, start):
+def make_results(matrix, start):
     global eps
     y = mult_matr_on_vec(matrix, start)
     temp = scalar(y, start)
@@ -47,19 +47,19 @@ def make_result(matrix, start):
         start = []
         for i in y: start.append(i / n)
 
-    return temp
+    return (temp, start)
 
 
 eps = 0.1**6
 
-fin = open('input3.txt', 'r')
+fin = open('input1.txt', 'r')
 
 start = [float(x) for x in fin.readline().split()]
 matr = []
 for line in fin:
     matr.append([float(x) for x in line.split()])
 
-answer = make_result(matr, start)
-print(answer)
+answer = make_results(matr, start)
+# print(answer)
 
 fin.close()

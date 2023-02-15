@@ -2,6 +2,7 @@ import math
 
 import numpy as np
 
+from Vanish.task0.Method import make_results
 
 
 def inversion(A, n):
@@ -126,7 +127,7 @@ def make_result(matrix, start):
 
 eps = 0.1**6
 
-fin = open('input1.txt', 'r')
+fin = open('input2.txt', 'r')
 
 start = [float(x) for x in fin.readline().split()]
 matr = []
@@ -134,7 +135,7 @@ for line in fin:
     matr.append([float(x) for x in line.split()])
 
 
-ownLmd, ownVec =   make_result(matr, start)
+ownLmd, ownVec = make_results(matr, start)
 
 print(ownLmd)
 print(ownVec)
