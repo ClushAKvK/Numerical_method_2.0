@@ -99,68 +99,6 @@ def getLamda(y, lastX):
     return ans
 
 
-# def make_results(matrix, start):
-#     global eps
-#     y = mult_matr_on_vec(matrix, start)
-#     temp = scalar(y, start)
-#     lastTemp = temp + 1
-#
-#     n = norm(y)
-#     start = []
-#     for i in y: start.append(i / n)
-#
-#     while abs(temp - lastTemp) > eps:
-#         y = mult_matr_on_vec(matrix, start)
-#         lastTemp = temp
-#         temp = scalar(y, start)
-#         n = norm(y)
-#         start = []
-#         for i in y: start.append(i / n)
-#
-#     return (temp, start)
-
-# def make_result(matrix, start):
-#     global eps
-#
-#     matrix = inversion(matrix, len(matrix))
-#
-#     y = multiplyMatrixByVector(matrix, start)
-#     temp = scalar(y, start)
-#     lastTemp = temp - 1
-#
-#     n = norm(y)
-#     start = []
-#     for i in y:start.append(i / n)
-#
-#     while abs(temp - lastTemp) > eps:
-#         y = multiplyMatrixByVector(matrix, start)
-#         lastTemp = temp
-#         temp = scalar(y, start)
-#         n = norm(y)
-#         start = []
-#         for i in y: start.append(i / n)
-#         return (1 / temp, start)
-
-    # lastX = getNewApproximation(start)
-    # lastY = multiplyMatrixByVector(matrix, start)
-    # lastLmd = getLamda(lastY, start)
-    #
-    # x = getNewApproximation(lastY)
-    # y = multiplyMatrixByVector(matrix, lastY)
-    # lmd = getLamda(y, lastX)
-
-    # while abs(lmd - lastLmd) > eps:
-    #     lastX = x
-    #     lastY = y
-    #     lastLmd = lmd
-    #
-    #     x = getNewApproximation(lastY)
-    #     y = multiplyMatrixByVector(matrix, lastY)
-    #     lmd = getLamda(y, lastX)
-    #
-    # return (1/lmd, getNewApproximation(y))
-
-
 def foo(tempY, lastX):
     temp = []
     for y, x in zip(tempY, lastX):
