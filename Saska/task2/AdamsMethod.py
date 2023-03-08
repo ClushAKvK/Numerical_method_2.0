@@ -56,7 +56,8 @@ class AdamsMethod:
     def get_runge_kut_begin(self):
         begin_y = []
 
-        h = 0.16
+        h = self.step
+        # h = 0.16
         # h = 0.06
         # h = 0.23
         y = self.y0
@@ -107,7 +108,7 @@ class AdamsMethod:
 
         ansXi = []
         ansYi = []
-        for x in np.arange(self.a, self.b+0.1, self.step):
+        for x in np.arange(self.a, self.b + 0.1, self.step):
             ansXi.append(x)
             ansYi.append(ansFunc(x))
 
@@ -137,7 +138,7 @@ class AdamsMethod:
 
 
 def main():
-    with open("input1.txt") as fin:
+    with open("input3.txt") as fin:
         a, b = map(float, fin.readline().split())
         y0 = float(fin.readline())
 
