@@ -51,24 +51,12 @@ class AdamsMethod:
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111)
         self.ax.set(xlabel='Ось абсцисс', ylabel='Ось ординат', title='Метод Адамса 5-шаговый')
-
-        # self.execute_func()
-
-    def execute_func(self):
-        pass
-        # x = np.linspace(self.a, self.b, self.step)
-        # y = tuple(map(eval(func()), x))
-        # self.ax.plot(x, y, label=f'Исходная функция: {self.f}(x)')
-        # x = np.linspace(self.a, self.b, self.cnt)
-        # y = tuple(map(eval(self.f), x))
-        # self.ax.scatter(x, y, color='orange', label='Узлы интерполирования')
-        #
-        # self.newton_pol(x, y)
+        self.ax.grid(True)
 
     def get_runge_kut_begin(self):
         begin_y = []
 
-        # h = 0.17
+        h = 0.16
         # h = 0.06
         # h = 0.23
         y = self.y0
@@ -119,16 +107,29 @@ class AdamsMethod:
 
         ansXi = []
         ansYi = []
-        for x in np.arange(self.a, self.b, self.step):
+        for x in np.arange(self.a, self.b+0.1, self.step):
             ansXi.append(x)
             ansYi.append(ansFunc(x))
 
         self.ax.plot(tuple(ansXi), tuple(ansYi), label='Точное решение')
 
-        self.ax.scatter(tuple(ansXi), tuple(ansYi), color='orange', label='Узлы интерполирования')
+        self.ax.scatter(tuple(ansXi), tuple(ansYi), color='black', label='Точки разбиения', s=15)
+
+        self.ax.plot([], [], linestyle='', label=f'Невязка:{self.get_discrepancy(xi, yi, ansXi, ansYi)}')
 
         self.show_graphic()
         # return self.dots
+
+    def get_discrepancy(self, dots1X, dots1Y, dots2X, dots2Y):
+        dicr = 0
+        for i in range(len(dots1X)):
+            dot1 = (dots1X[i], dots1Y[i])
+            dot2 = (dots2X[i], dots2Y[i])
+            dist = math.sqrt((dot1[0] - dot2[0])**2 + (dot1[1] - dot2[1])**2)
+            dicr += dist
+
+        dicr /= len(dots1X)
+        return dicr
 
     def show_graphic(self):
         self.ax.legend()
@@ -148,9 +149,6 @@ def main():
 
         method = AdamsMethod(a, b, y0)
         method.adams_method()
-    # ans = method.adams_method()
-
-    # print(ans, sep='\n')
 
 
 if __name__ == "__main__":
