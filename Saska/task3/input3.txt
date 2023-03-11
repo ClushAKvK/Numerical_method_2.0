@@ -1,4 +1,7 @@
-1 9
-0.841
-func3
-ansFunc3
+0 2.5
+1 0.5
+2
+func3X
+func3Y
+ansFunc3X
+ansFunc3Y

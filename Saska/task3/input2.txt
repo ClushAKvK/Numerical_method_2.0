@@ -1,4 +1,7 @@
-1.5 5.1
-1.989
-func2
-ansFunc2
+0 7
+0 -1
+2
+func2X
+func2Y
+ansFunc2X
+ansFunc2Y
