@@ -16,6 +16,19 @@ def inversion(A, n):
     for k in range(n):
         temp = A[k][k]
 
+        if temp == 0:
+            idx = -1
+            for p in range(k + 1, n):
+                if A[p][k] != 0:
+                    idx = p
+
+            for p in range(len(A[k])):
+                temp = A[k][p]
+                A[k][p] = A[idx][p]
+                A[idx][p] = temp
+
+            temp = A[k][k]
+
         for j in range(n):
             A[k][j] /= temp
             E[k][j] /= temp
@@ -137,7 +150,7 @@ def make_result(matrix, y0):
 
 eps = 0.1**6
 
-fin = open('input3.txt', 'r')
+fin = open('input1.txt', 'r')
 
 start = [float(x) for x in fin.readline().split()]
 matr = []
