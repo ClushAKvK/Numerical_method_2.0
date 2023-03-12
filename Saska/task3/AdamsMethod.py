@@ -19,11 +19,6 @@ class AdamsMethod:
         self.system_count = len(start)
         self.dots = [[] for i in range(self.system_count)]
 
-        # self.fig = plt.figure()
-        # self.ax = self.fig.add_subplot(111)
-        # self.ax.set(xlabel='Ось абсцисс', ylabel='Ось ординат', title='Метод Адамса 5-шаговый')
-        # self.ax.grid(True)
-
         self.fig, self.axs = plt.subplots(1, self.system_count, figsize=(20, 5))
         for i in range(self.system_count):
             tempF = eval(*func[i])
@@ -48,7 +43,6 @@ class AdamsMethod:
 
             for i in range(self.system_count):
                 tempF = eval(*func[i])
-
 
                 # RANK 5
                 k1 = 1/3 * h * tempF(t, y)
