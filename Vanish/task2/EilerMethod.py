@@ -37,6 +37,62 @@ def ansFunc3(x):
 # ----------------------------------------------------------------------------------------------------------------------
 
 
+# class Newton:
+#     eps = 0.1**5
+#
+#     def difference_Newton(self, right, eps):
+#         x = right
+#         lastX = x - 1
+#         h = 0.1
+#
+#         while abs(func(lastX) - func(x)) < eps:
+#             lastX = x
+#             temp = (func(x) * h) / (func(x + h) - func(x))
+#             x -= temp
+#             h /= 10
+#
+#         return x
+
+
+class HalfDivision:
+    eps = 0.1**5
+
+    n = 50
+
+    def run(self, left, right, x, lastY, h):
+        y = []
+        for i in range(self.n):
+            a = left + i * (right - left) / self.n
+            b = left + (i + 1) * (right - left) / self.n
+
+            check_a = a - h * func(x, a) - lastY
+            check_b = b - h * func(x, b) - lastY
+
+            if check_a * check_b < 0:
+                y.append(self.method(a, b, x, lastY, h))
+
+        minY = y.pop()
+        for i in y:
+            if abs(i - lastY) < abs(minY - lastY):
+                minY = i
+
+        return minY
+
+    def method(self, left, right, x, lastY, h):
+
+        while abs(right - left) > self.eps:
+            c = (left + right) / 2
+            # temp = func(right, c)
+            check_left = left - h * func(x, left) - lastY
+            check_c = c - h * func(x, c) - lastY
+            if check_left * check_c < 0:
+                right = c
+            else:
+                left = c
+
+        return (left + right) / 2
+
+
 class EilerMethod:
 
     splits = 30
@@ -50,7 +106,7 @@ class EilerMethod:
 
         self.fig = plt.figure()
         self.ax = self.fig.add_subplot(111)
-        self.ax.set(xlabel='Ось абсцисс', ylabel='Ось ординат', title='Метод Рунге-Кута 2-шаговый')
+        self.ax.set(xlabel='Ось абсцисс', ylabel='Ось ординат', title='Метод Эйлера')
         self.ax.grid(True)
 
     def eiler(self):
@@ -59,9 +115,16 @@ class EilerMethod:
         x = self.a
 
         self.dots.append((x, y))
+        # while x < self.b:
+        #     x += self.step
+        #     y = y + h * func(x, y)
+        #     self.dots.append((x, y))
+
+        hd = HalfDivision()
+        lastY = y - 1
         while x < self.b:
             x += self.step
-            y = y + h * func(x, y)
+            y = hd.run(y - 100, y + 100, x, y, h)
             self.dots.append((x, y))
 
         xi = []
@@ -104,7 +167,7 @@ class EilerMethod:
 
 
 def main():
-    with open("input3.txt") as fin:
+    with open("input2.txt") as fin:
         a, b = map(float, fin.readline().split())
         y0 = float(fin.readline())
 

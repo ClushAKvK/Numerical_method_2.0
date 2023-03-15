@@ -78,3 +78,27 @@ def ansFunc3X(t):
 def ansFunc3Y(t):
     """y = 1/2 * e^(-t^2)"""
     return 0.5 * math.e**(-1 * (t**2))
+
+
+#  Test 3
+
+# input
+def func4X(t, params):
+    """2 * y * x' = x^2 - y^2 + 1"""
+    return params[0]**2 / (2 * params[1]) - params[1] / 2 + 1 / (2 * params[1])
+
+
+def func4Y(t, params):
+    """y' = y + x"""
+    return params[1] + params[0]
+
+
+# ans funcs
+def ansFunc4X(t):
+    """x = e^(t^2)"""
+    return 1 / 2 * t - 1 / 4 * t**2 - 1
+
+
+def ansFunc4Y(t):
+    """y = 1/2 * e^(-t^2)"""
+    return 1 + 1 / 4 * t**2
