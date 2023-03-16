@@ -194,7 +194,7 @@ def main():
     a = [[] for i in range(5)]
     a[0].append(1)
 
-    with open('input3.txt') as fin:
+    with open('input1.txt') as fin:
         a, b = map(float, fin.readline().split())
         start = [float(c) for c in fin.readline().split()]
         sc = int(fin.readline())
