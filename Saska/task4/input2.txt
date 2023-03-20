@@ -1,0 +1,4 @@
+0 0.693
+1 7
+func2Z
+ansFunc2Z
