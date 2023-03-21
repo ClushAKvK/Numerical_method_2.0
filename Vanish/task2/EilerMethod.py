@@ -121,7 +121,7 @@ class EilerMethod:
         #     self.dots.append((x, y))
 
         hd = HalfDivision()
-        lastY = y - 1
+        # lastY = y - 1
         while x < self.b:
             x += self.step
             y = hd.run(y - 100, y + 100, x, y, h)

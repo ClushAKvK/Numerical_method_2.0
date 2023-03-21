@@ -1,0 +1,7 @@
+0 2.5
+-1 0.5
+2
+func4X
+func4Y
+ansFunc4X
+ansFunc4Y
