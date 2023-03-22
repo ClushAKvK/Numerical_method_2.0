@@ -66,6 +66,7 @@ def func3X(t, params):
 
 def func3Y(t, params):
     """y' = -(t / x)"""
+    # print(params[0])
     return -1 * (t / params[0])
 
 

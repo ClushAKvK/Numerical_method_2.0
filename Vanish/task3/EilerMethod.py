@@ -9,43 +9,91 @@ ansFunc = None
 class HalfDivision:
     eps = 0.1**5
 
-    n = 50
+    n = 3
 
-    def run(self, left, right, x, lastY, h, func):
-        y = []
+    def run(self, left, right, t, lastY, h):
+        system_count = len(left)
+        y = [[] for i in range(system_count)]
+
+        # for i in range(self.n):
+        #     a = []
+        #     b = []
+        #     for j in range(system_count):
+        #         a.append(left[j] + i * (right[j] - left[j]) / self.n)
+        #         b.append(left[j] + (i + 1) * (right[j] - left[j]) / self.n)
+        #
+        #     check_a = a[idx] - h * func(x, a) - lastY[idx]
+        #     check_b = b[idx] - h * func(x, b) - lastY[idx]
+        #
+        #     if check_a * check_b < 0:
+        #         y.append(self.method(a, b, x, lastY, h, func, idx))
+
         for i in range(self.n):
-            a = left + i * (right - left) / self.n
-            b = left + (i + 1) * (right - left) / self.n
+            b = []
+            a = []
+            for j in range(system_count):
+                a.append(left[j] + i * (right[j] - left[j]) / self.n)
+                b.append(left[j] + (i + 1) * (right[j] - left[j]) / self.n)
 
-            check_a = a - h * func(x, a) - lastY
-            check_b = b - h * func(x, b) - lastY
+            for j in range(system_count):
+                temp_func = eval(*func[j])
+                check_a = a[j] - h * temp_func(t, a) - lastY[j]
+                check_b = b[j] - h * temp_func(t, b) - lastY[j]
 
-            if check_a * check_b < 0:
-                y.append(self.method(a, b, x, lastY, h, func))
+                if check_a * check_b < 0:
+                    y[j].append(self.method(a, b, t, lastY, h, temp_func, j))
 
-        minY = y.pop()
-        for i in y:
-            if abs(i - lastY) < abs(minY - lastY):
-                minY = i
+        new_Y = []
+        for i in range(system_count):
+            minY = y[i].pop()
+            for j in y[i]:
+                if abs(j - lastY[i]) < abs(minY - lastY[i]):
+                    minY = j
+            new_Y.append(minY)
 
-        return minY
+        # minY = y.pop()
+        # for i in y:
+        #     if abs(i - lastY[idx]) < abs(minY - lastY[idx]):
+        #         minY = i
 
-    def method(self, left, right, x, lastY, h, func):
+        return new_Y
 
-        while abs(right - left) > self.eps:
-            c = (left + right) / 2
+    def method(self, left, right, x, lastY, h, func, idx):
+        system_count = len(left)
+        while abs(right[idx] - left[idx]) > self.eps:
+            c = []
+            for i in range(system_count):
+                c.append((left[i] + right[i]) / 2)
             # temp = func(right, c)
-            check_left = left - h * func(x, left) - lastY
-            check_c = c - h * func(x, c) - lastY
+            check_left = left[idx] - h * func(x, left) - lastY[idx]
+            check_c = c[idx] - h * func(x, c) - lastY[idx]
             if check_left * check_c < 0:
                 right = c
             else:
                 left = c
 
-        return (left + right) / 2
+        return (left[idx] + right[idx]) / 2
 
+    # def method(self, lefts, rights, t, lastY, h, idx):
+    #     system_count = len(lefts)
+    #     while max([abs(right - left) for right, left in zip(rights, lefts)]) > self.eps:
+    #         c = []
+    #         for i in range(system_count):
+    #             c.append((lefts[i] + rights[i]) / 2)
+    #
+    #         for i in range(system_count):
+    #             temp_func = eval(*func[i])
+    #             check_left = lefts[i] - h * temp_func(t, lefts) - lastY[i]
+    #             check_c = c[i] - h * temp_func(t, c) - lastY[i]
+    #             if check_left * check_c < 0:
+    #                 rights[i] = c[i]
+    #             else:
+    #                 lefts[i] = c[i]
 
-class AdamsMethod:
+        # return [(left + right) / 2 for left, right in zip(lefts, rights)]
+        # return (lefts[idx] + rights[idx]) / 2
+
+class Eiler:
 
     splits = 30
 
@@ -64,7 +112,6 @@ class AdamsMethod:
             self.axs[i].set(xlabel='Ось абсцисс', ylabel='Ось ординат', title=tempF.__doc__)
             self.axs[i].grid(True)
 
-
     def eiler(self):
         h = self.step
         y = self.start
@@ -76,10 +123,20 @@ class AdamsMethod:
         hd = HalfDivision()
         while t < self.b:
             t += self.step
+            ny = []
+            left = [ys - 10000 for ys in y]
+            right = [ys + 10000 for ys in y]
+            y = hd.run(left, right, t, y, h)
+
             for i in range(self.system_count):
-                temp_func = eval(*func[i])
-                y[i] = hd.run(y[i] - 100, y[i] + 100, t, y[i], h, temp_func)
                 self.dots[i].append((t, y[i]))
+            # for i in range(self.system_count):
+            #     temp_func = eval(*func[i])
+            #     temp_y = hd.run(left, right, t, y, h, temp_func, i)
+            #     ny.append(temp_y)
+            #     self.dots[i].append((t, temp_y))
+            # y = hd.run(left, right, x)
+            # y = ny
 
         self.draw()
 
@@ -128,10 +185,7 @@ class AdamsMethod:
 
 def main():
 
-    a = [[] for i in range(5)]
-    a[0].append(1)
-
-    with open('input1.txt') as fin:
+    with open('input3.txt') as fin:
         a, b = map(float, fin.readline().split())
         start = [float(c) for c in fin.readline().split()]
         sc = int(fin.readline())
@@ -142,8 +196,8 @@ def main():
         global ansFunc
         ansFunc = [fin.readline().split() for i in range(sc)]
 
-        am = AdamsMethod(a, b, start)
-        am.eiler()
+        ei = Eiler(a, b, start)
+        ei.eiler()
 
 
 if __name__ == "__main__":
