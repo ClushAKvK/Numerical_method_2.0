@@ -112,7 +112,7 @@ class Method:
 
 
 def main():
-    with open('input2.txt') as fin:
+    with open('input3.txt') as fin:
         a, b = map(float, fin.readline().split())
         A, B = map(float, fin.readline().split())
 
