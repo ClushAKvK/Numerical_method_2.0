@@ -1,0 +1,6 @@
+8 10 0.5
+zero_f
+start_4
+border_left_4
+border_right_4
+ans_func_2

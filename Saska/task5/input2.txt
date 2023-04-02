@@ -1,0 +1,6 @@
+1 1 0.3
+f_2
+start_2
+border_left_2
+border_right_2
+ans_func_2
