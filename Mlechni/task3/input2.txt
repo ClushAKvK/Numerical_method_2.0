@@ -1,0 +1,7 @@
+0 7
+0 -1
+2
+func2X
+func2Y
+ansFunc2X
+ansFunc2Y
