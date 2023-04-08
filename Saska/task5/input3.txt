@@ -1,4 +1,4 @@
-1 1 0.4
+1 1 1
 zero_f
 start_3
 border_left_3

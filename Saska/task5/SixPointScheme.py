@@ -13,13 +13,13 @@ def sweep_method(a, b, c, d):
     # border1, border2 = (eval(border[0]), eval(border[1]))
     # p = [0]
     # q = [border1(0)]
-    p = [-c[0] / b[0]]
-    q = [d[0] / b[0]]
+    p = [None, -c[0] / b[0]]
+    q = [None, d[0] / b[0]]
 
     # p.append(-c[0] / b[0])
     # q.append(d[0] / b[0])
 
-    for i in range(len(d) - 1):
+    for i in range(1, len(d) - 1):
         p.append(-c[i] / (a[i] * p[i] + b[i]))
         q.append((d[i] - a[i] * q[i]) / (a[i] * p[i] + b[i]))
 
@@ -28,10 +28,10 @@ def sweep_method(a, b, c, d):
     # p.append(-c[len(c) - 1])
     # q.append()
 
-    m = len(d) - 1
+    m = len(a) - 1
     # lastX = border2(1)
     lastX = (d[m] - a[m] * q[m]) / (p[m] * a[m] + b[m])
-    x = [lastX / 2, lastX]
+    x = [lastX]
     while m != 0:
         m -= 1
         newX = lastX * p[m + 1] + q[m + 1]
@@ -66,21 +66,23 @@ class SixPointSchemeMethod:
         self.ax.grid(True)
 
     def run(self):
+        border1, border2 = (eval(border[0]), eval(border[1]))
+
         layer = [[] for i in range(self.t_splits)]
 
         x = 0
-        for i in range(self.x_splits):
+        # layer[0].append(border1(0))
+        for i in range(self.x_splits + 1):
             layer[0].append(start(x))
             x += self.x_step
+        # layer[0].append(border2(self.l))
 
         sigma = (self.alpha * self.t_step) / (2 * self.x_step**2)
 
-        border1, border2 = (eval(border[0]), eval(border[1]))
-
         for i in range(1, self.t_splits):
             x = 0
-            a, b, c, d = [], [], [], []
-            for j in range(1, self.x_splits - 1):
+            a, b, c, d = [None], [1], [0], [border1(0)]
+            for j in range(1, self.x_splits):
                 a.append(-sigma)
                 b.append(2 * sigma + 1)
                 c.append(-sigma)
@@ -89,9 +91,14 @@ class SixPointSchemeMethod:
                 )
                 x += self.x_step
 
-            layer[i].append(border1(0))
+            a.append(0)
+            b.append(1)
+            c.append(None)
+            d.append(border2(self.l))
+
+            # layer[i].append(border1(0))
             layer[i].extend(sweep_method(a, b, c, d))
-            layer[i].append(border2(self.l))
+            # layer[i].append(border2(self.l))
 
         x = 0
         for i in range(0, len(layer[-1])):
@@ -107,9 +114,11 @@ class SixPointSchemeMethod:
         #         yi.append(i)
         #         x += self.x_step
         #     self.ax.plot(tuple(xi), tuple(yi), color='indigo', linestyle='-')
-
+        #
         # self.ax.legend()
         # plt.show()
+        #
+
         self.show_graphic()
 
     def show_graphic(self):
@@ -129,7 +138,7 @@ class SixPointSchemeMethod:
 
         self.ax.plot(tuple(ansXi), tuple(ansYi), label='Точное решение')
 
-        self.ax.scatter(tuple(xi), tuple(yi), color='black', label='Точки разбиения', s=15)
+        self.ax.scatter(tuple(xi), tuple(yi), color='black', label='Узлы', s=15)
 
         self.ax.plot([], [], linestyle='', label=f'Погрешность:{self.get_discrepancy(xi, yi, ansXi, ansYi)}')
 
@@ -153,7 +162,7 @@ class SixPointSchemeMethod:
 
 
 def main():
-    with open('input4.txt') as fin:
+    with open('input1.txt') as fin:
         thermal_conductivity, l, T = map(float, fin.readline().split())
 
         f = eval(fin.readline().strip())

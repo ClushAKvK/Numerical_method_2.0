@@ -123,7 +123,7 @@ class RungeKutMethod:
         self.system_count = len(start)
         self.dots = [[] for i in range(self.system_count)]
 
-        self.fig, self.axs = plt.subplots(1, self.system_count, figsize=(20, 5))
+        self.fig, self.axs = plt.subplots(2, self.system_count, figsize=(20, 5))
         for i in range(self.system_count):
             tempF = eval(*func[i])
             self.axs[i].set(xlabel='Ось абсцисс', ylabel='Ось ординат', title=tempF.__doc__)

@@ -73,3 +73,16 @@ def border_left_4(t):
 def border_right_4(t):
     # return 1
     return 0
+
+# Test 5
+def start_5(x):
+    return 1
+
+def border_left_5(t):
+    return 1
+
+def border_right_5(t):
+    return 0
+
+def border_right_6(t):
+    return math.sin(math.pi * t)
