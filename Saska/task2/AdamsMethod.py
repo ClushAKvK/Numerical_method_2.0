@@ -138,7 +138,7 @@ class AdamsMethod:
 
 
 def main():
-    with open("input3.txt") as fin:
+    with open("input1.txt") as fin:
         a, b = map(float, fin.readline().split())
         y0 = float(fin.readline())
 

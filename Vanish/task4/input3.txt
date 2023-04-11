@@ -1,0 +1,5 @@
+0 1
+0 0
+px3
+fx3
+ansFunc3
