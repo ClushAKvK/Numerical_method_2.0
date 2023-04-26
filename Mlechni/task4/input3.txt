@@ -1,0 +1,4 @@
+0 1
+0 -1
+func3Z
+ansFunc3Z
